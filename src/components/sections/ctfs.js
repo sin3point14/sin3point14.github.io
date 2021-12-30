@@ -184,7 +184,7 @@ const Ctfs = () => {
               <th>Year</th>
               <th>Event</th>
               <th className="hide-on-mobile">Team</th>
-              <th className="hide-on-mobile">Result</th>
+              <th>Result</th>
             </tr>
           </thead>
           <tbody>
@@ -206,7 +206,7 @@ const Ctfs = () => {
                       {team}
                     </td>
 
-                    <td className="company hide-on-mobile">
+                    <td >
                       {result}
                     </td>
                   </tr>

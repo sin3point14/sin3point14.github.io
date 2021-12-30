@@ -1,186 +1,146 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useStaticQuery, graphql } from 'gatsby';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import styled from 'styled-components';
 import { srConfig } from '@config';
 import sr from '@utils/sr';
 import { Icon } from '@components/icons';
 import { usePrefersReducedMotion } from '@hooks';
 
-const StyledProjectsSection = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+const StyledTableContainer = styled.div`
+  margin: 100px -20px;
 
-  h2 {
-    font-size: clamp(24px, 5vw, var(--fz-heading));
+  @media (max-width: 768px) {
+    margin: 50px -10px;
   }
 
-  .archive-link {
-    font-family: var(--font-mono);
-    font-size: var(--fz-sm);
-    &:after {
-      bottom: 0.1em;
-    }
-  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
 
-  .projects-grid {
-    ${({ theme }) => theme.mixins.resetList};
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-gap: 15px;
-    position: relative;
-    margin-top: 50px;
-
-    @media (max-width: 1080px) {
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    }
-  }
-
-  .more-button {
-    ${({ theme }) => theme.mixins.button};
-    margin: 80px auto 0;
-  }
-`;
-
-const StyledProject = styled.li`
-  position: relative;
-  cursor: default;
-  transition: var(--transition);
-
-  @media (prefers-reduced-motion: no-preference) {
-    &:hover,
-    &:focus-within {
-      .project-inner {
-        transform: translateY(-7px);
+    .hide-on-mobile {
+      @media (max-width: 768px) {
+        display: none;
       }
     }
-  }
 
-  a {
-    position: relative;
-    z-index: 1;
-  }
+    tbody tr {
+      &:hover,
+      &:focus {
+        background-color: var(--light-navy);
+      }
+    }
 
-  .project-inner {
-    ${({ theme }) => theme.mixins.boxShadow};
-    ${({ theme }) => theme.mixins.flexBetween};
-    flex-direction: column;
-    align-items: flex-start;
-    position: relative;
-    height: 100%;
-    padding: 2rem 1.75rem;
-    border-radius: var(--border-radius);
-    background-color: var(--light-navy);
-    transition: var(--transition);
-  }
+    th,
+    td {
+      padding: 10px;
+      text-align: left;
 
-  .project-top {
-    ${({ theme }) => theme.mixins.flexBetween};
-    margin-bottom: 35px;
+      &:first-child {
+        padding-left: 20px;
 
-    .folder {
-      color: var(--green);
+        @media (max-width: 768px) {
+          padding-left: 10px;
+        }
+      }
+      &:last-child {
+        padding-right: 20px;
+
+        @media (max-width: 768px) {
+          padding-right: 10px;
+        }
+      }
+
       svg {
-        width: 40px;
-        height: 40px;
+        width: 20px;
+        height: 20px;
       }
     }
 
-    .project-links {
-      display: flex;
-      align-items: center;
-      margin-right: -10px;
-      color: var(--light-slate);
+    tr {
+      cursor: default;
 
-      a {
-        ${({ theme }) => theme.mixins.flexCenter};
-        padding: 5px 7px;
+      td:first-child {
+        border-top-left-radius: var(--border-radius);
+        border-bottom-left-radius: var(--border-radius);
+      }
+      td:last-child {
+        border-top-right-radius: var(--border-radius);
+        border-bottom-right-radius: var(--border-radius);
+      }
+    }
 
-        &.external {
-          svg {
-            width: 22px;
-            height: 22px;
-            margin-top: -4px;
+    td {
+      &.year {
+        padding-right: 20px;
+
+        @media (max-width: 768px) {
+          padding-right: 10px;
+          font-size: var(--fz-sm);
+        }
+      }
+
+      &.title {
+        padding-top: 15px;
+        padding-right: 20px;
+        color: var(--lightest-slate);
+        font-size: var(--fz-xl);
+        font-weight: 600;
+        line-height: 1.25;
+      }
+
+      &.company {
+        font-size: var(--fz-lg);
+        white-space: nowrap;
+      }
+
+      &.tech {
+        font-size: var(--fz-xxs);
+        font-family: var(--font-mono);
+        line-height: 1.5;
+        .separator {
+          margin: 0 5px;
+        }
+        span {
+          display: inline-block;
+        }
+      }
+
+      &.links {
+        min-width: 100px;
+
+        div {
+          display: flex;
+          align-items: center;
+
+          a {
+            ${({ theme }) => theme.mixins.flexCenter};
+            flex-shrink: 0;
+          }
+
+          a + a {
+            margin-left: 10px;
           }
         }
-
-        svg {
-          width: 20px;
-          height: 20px;
-        }
-      }
-    }
-  }
-
-  .project-title {
-    margin: 0 0 10px;
-    color: var(--lightest-slate);
-    font-size: var(--fz-xxl);
-
-    a {
-      position: static;
-
-      &:before {
-        content: '';
-        display: block;
-        position: absolute;
-        z-index: 0;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-      }
-    }
-  }
-
-  .project-description {
-    color: var(--light-slate);
-    font-size: 17px;
-
-    a {
-      ${({ theme }) => theme.mixins.inlineLink};
-    }
-  }
-
-  .project-tech-list {
-    display: flex;
-    align-items: flex-end;
-    flex-grow: 1;
-    flex-wrap: wrap;
-    padding: 0;
-    margin: 20px 0 0 0;
-    list-style: none;
-
-    li {
-      font-family: var(--font-mono);
-      font-size: var(--fz-xxs);
-      line-height: 1.75;
-
-      &:not(:last-of-type) {
-        margin-right: 15px;
       }
     }
   }
 `;
 
 const Ctfs = () => {
+
   const data = useStaticQuery(graphql`
     query {
-      projects: allMarkdownRemark(
-        filter: {
-          fileAbsolutePath: { regex: "/projects/" }
-          frontmatter: { showInProjects: { ne: false } }
-        }
+      ctfs: allMarkdownRemark(
+        filter: { fileAbsolutePath: { regex: "/ctfs/" } }
         sort: { fields: [frontmatter___date], order: DESC }
       ) {
         edges {
           node {
             frontmatter {
-              title
-              tech
-              github
-              external
+              event
+              team
+              result
+              year
             }
             html
           }
@@ -206,105 +166,48 @@ const Ctfs = () => {
   }, []);
 
   const GRID_LIMIT = 6;
-  const projects = data.projects.edges.filter(({ node }) => node);
-  const firstSix = projects.slice(0, GRID_LIMIT);
-  const projectsToShow = showMore ? projects : firstSix;
-
-  const projectInner = node => {
-    const { frontmatter, html } = node;
-    const { github, external, title, tech } = frontmatter;
-
-    return (
-      <div className="project-inner">
-        <header>
-          <div className="project-top">
-            <div className="folder">
-              <Icon name="Folder" />
-            </div>
-            <div className="project-links">
-              {github && (
-                <a href={github} aria-label="GitHub Link" target="_blank" rel="noreferrer">
-                  <Icon name="GitHub" />
-                </a>
-              )}
-              {external && (
-                <a
-                  href={external}
-                  aria-label="External Link"
-                  className="external"
-                  target="_blank"
-                  rel="noreferrer">
-                  <Icon name="External" />
-                </a>
-              )}
-            </div>
-          </div>
-
-          <h3 className="project-title">
-            <a href={external} target="_blank" rel="noreferrer">
-              {title}
-            </a>
-          </h3>
-
-          <div className="project-description" dangerouslySetInnerHTML={{ __html: html }} />
-        </header>
-
-        <footer>
-          {tech && (
-            <ul className="project-tech-list">
-              {tech.map((tech, i) => (
-                <li key={i}>{tech}</li>
-              ))}
-            </ul>
-          )}
-        </footer>
-      </div>
-    );
-  };
+  const ctfs = data.ctfs.edges.filter(({ node }) => node);
+  const firstSix = ctfs.slice(0, GRID_LIMIT);
 
   return (
-    <StyledProjectsSection>
-      <h2 ref={revealTitle}>Other Noteworthy Projects</h2>
+    <StyledTableContainer>
+      <table>
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Event</th>
+            <th className="hide-on-mobile">Team</th>
+            <th className="hide-on-mobile">Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          {ctfs.length > 0 &&
+            ctfs.map(({ node }, i) => {
+              const {
+                event,
+                result,
+                year,
+                team
+              } = node.frontmatter;
+              return (
+                <tr key={i} ref={el => (revealProjects.current[i] = el)}>
+                  <td className="overline year">{year}</td>
 
-      <Link className="inline-link archive-link" to="/archive" ref={revealArchiveLink}>
-        view the archive
-      </Link>
+                  <td className="title">{event}</td>
 
-      <ul className="projects-grid">
-        {prefersReducedMotion ? (
-          <>
-            {projectsToShow &&
-              projectsToShow.map(({ node }, i) => (
-                <StyledProject key={i}>{projectInner(node)}</StyledProject>
-              ))}
-          </>
-        ) : (
-          <TransitionGroup component={null}>
-            {projectsToShow &&
-              projectsToShow.map(({ node }, i) => (
-                <CSSTransition
-                  key={i}
-                  classNames="fadeup"
-                  timeout={i >= GRID_LIMIT ? (i - GRID_LIMIT) * 300 : 300}
-                  exit={false}>
-                  <StyledProject
-                    key={i}
-                    ref={el => (revealProjects.current[i] = el)}
-                    style={{
-                      transitionDelay: `${i >= GRID_LIMIT ? (i - GRID_LIMIT) * 100 : 0}ms`,
-                    }}>
-                    {projectInner(node)}
-                  </StyledProject>
-                </CSSTransition>
-              ))}
-          </TransitionGroup>
-        )}
-      </ul>
+                  <td className="company hide-on-mobile">
+                    {team}
+                  </td>
 
-      <button className="more-button" onClick={() => setShowMore(!showMore)}>
-        Show {showMore ? 'Less' : 'More'}
-      </button>
-    </StyledProjectsSection>
+                  <td className="company hide-on-mobile">
+                    {result}
+                  </td>
+                </tr>
+              );
+            })}
+        </tbody>
+      </table>
+    </StyledTableContainer>
   );
 };
 

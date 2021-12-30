@@ -2,7 +2,7 @@
 date: '4'
 title: 'xrdesktop GLTF support'
 cover: './suzanne.png'
-external: 'https://sin3point14.github.io/GSoC-Final/'
+external: 'https://sin3point14.github.io/blog/GSoC-Final/'
 github: 'https://gitlab.freedesktop.org/xrdesktop/xrdesktop/-/merge_requests/34'
 cta: ''
 tech:

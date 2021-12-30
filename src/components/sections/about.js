@@ -137,15 +137,14 @@ const About = () => {
           <div>
             <p>
               Hello! My name is Manas(often go by sin3point14) and I enjoy creating things that have visual impact. My
-              interest in development started back in my highschool when i discovered html/css and ried my hand at learning it.
+              interest in development started back in my highschool when i discovered html/css and tried my hand at learning it.
             </p>
 
             <p>
               Fast-forward to today, I'm into my fourth year of engineering at IIT Roorkee
-              and have explored various field of computer science and software development.
-              I've had the privilige of completing a software engineering intern twice at Microsoft India
-              and a graphics programming intern at Collabora. I've also done a Google Summer of Code at xrdesktop 
-              exploring XR development on linux.
+              and have explored various field of computer science and software development as part of <a href='https://sdslabs.co'>SDSLabs</a>, a college group oriented towards software development  .
+              I've completed several internships to vouch for my skills. I've spent a good amount
+              of time at low level programming and trying to break things by reverse engineering them.
               
                {/* and I’ve had the privilege of working at{' '}
               <a href="https://us.mullenlowe.com/">an advertising agency</a>,{' '}

@@ -30,6 +30,14 @@ module.exports = {
       url: '/#projects',
     },
     {
+      name: 'CTFs',
+      url: '/#ctfs',
+    },
+    {
+      name: 'Hackathons',
+      url: '/#hackathons',
+    },
+    {
       name: 'Contact',
       url: '/#contact',
     },

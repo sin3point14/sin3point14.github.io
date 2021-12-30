@@ -7,7 +7,7 @@ import { Icon } from '@components/icons';
 import { usePrefersReducedMotion } from '@hooks';
 
 const StyledTableContainer = styled.div`
-  margin: 100px -20px;
+  margin: 20px -20px;
 
   @media (max-width: 768px) {
     margin: 50px -10px;
@@ -170,44 +170,53 @@ const Ctfs = () => {
   const firstSix = ctfs.slice(0, GRID_LIMIT);
 
   return (
-    <StyledTableContainer>
-      <table>
-        <thead>
-          <tr>
-            <th>Year</th>
-            <th>Event</th>
-            <th className="hide-on-mobile">Team</th>
-            <th className="hide-on-mobile">Result</th>
-          </tr>
-        </thead>
-        <tbody>
-          {ctfs.length > 0 &&
-            ctfs.map(({ node }, i) => {
-              const {
-                event,
-                result,
-                year,
-                team
-              } = node.frontmatter;
-              return (
-                <tr key={i} ref={el => (revealProjects.current[i] = el)}>
-                  <td className="overline year">{year}</td>
+    <section id="ctfs">
+      <h2 className="numbered-heading" ref={revealTitle}>CTF Profile</h2>
 
-                  <td className="title">{event}</td>
 
-                  <td className="company hide-on-mobile">
-                    {team}
-                  </td>
+      <p className="inline-link archive-link">
+        I play CTFs regularly with teams <a href='https://ctftime.org/team/2480/'>SDSLabs</a> and <a href='https://ctftime.org/team/16691/'>InfosecIITR</a>, solving reverse engineering, pwning and web expolitation challenges.
+      </p>
+      <StyledTableContainer>
+        <table>
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Event</th>
+              <th className="hide-on-mobile">Team</th>
+              <th className="hide-on-mobile">Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ctfs.length > 0 &&
+              ctfs.map(({ node }, i) => {
+                const {
+                  event,
+                  result,
+                  year,
+                  team
+                } = node.frontmatter;
+                return (
+                  <tr key={i} ref={el => (revealProjects.current[i] = el)}>
+                    <td className="overline year">{year}</td>
 
-                  <td className="company hide-on-mobile">
-                    {result}
-                  </td>
-                </tr>
-              );
-            })}
-        </tbody>
-      </table>
-    </StyledTableContainer>
+                    <td className="title">{event}</td>
+
+                    <td className="company hide-on-mobile">
+                      {team}
+                    </td>
+
+                    <td className="company hide-on-mobile">
+                      {result}
+                    </td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </table>
+      </StyledTableContainer>
+    </section>
+
   );
 };
 

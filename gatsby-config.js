@@ -5,8 +5,8 @@ module.exports = {
     title: 'sin3point14',
     description:
       'I\'m learning game development, graphics programming, reverse engineering and web dev while studying mechanical engineering as my major.',
-    // siteUrl: 'sin3point14.github.io', // No trailing slash allowed!
-    siteUrl: 'http://localhost', // No trailing slash allowed!
+    siteUrl: 'https://sin3point14.github.io', // No trailing slash allowed!
+    // siteUrl: 'http://localhost', // No trailing slash allowed!
     image: '/og.png', // Path to your image you placed in the 'static' folder
     twitterUsername: '@sin3point14',
   },

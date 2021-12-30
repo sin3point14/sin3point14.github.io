@@ -73,7 +73,7 @@ const Hero = () => {
   const five = (
     <a
       className="email-link"
-      href="https://sin3point14.github.io"
+      href="https://sin3point14.github.io/blog"
       target="_blank"
       rel="noreferrer">
       Check out my GSoC Blog!

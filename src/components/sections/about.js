@@ -142,7 +142,7 @@ const About = () => {
 
             <p>
               Fast-forward to today, I'm into my fourth year of engineering at IIT Roorkee
-              and have explored various field of computer science and software development as part of <a href='https://sdslabs.co'>SDSLabs</a>, a college group oriented towards software development  .
+              and have explored various field of computer science and software development as part of <a href='https://sdslabs.co'>SDSLabs</a>, a college group oriented towards software development.
               I've completed several internships to vouch for my skills. I've spent a good amount
               of time at low level programming and trying to break things by reverse engineering them.
               

@@ -64,7 +64,7 @@ const Hero = () => {
   const four = (
     <>
       <p>
-        I’m an engineering student at IIT Roorkee who's spent the better part of his college life
+        I’m a fresh Mechanical Engineering graduate from IIT Roorkee who's spent the better part of his college life
         digging into game development, graphics programming, information security and web technologies.
         I'm looking for employment oppurtunities in these domains.
       </p>
@@ -76,7 +76,7 @@ const Hero = () => {
       href="https://sin3point14.github.io/blog"
       target="_blank"
       rel="noreferrer">
-      Check out my GSoC Blog!
+      Check out my Blog!
     </a>
   );
 

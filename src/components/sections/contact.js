@@ -60,7 +60,8 @@ const Contact = () => {
       <h2 className="title">Get In Touch</h2>
 
       <p>
-        I'm currently looking for new oppurtunities in the fields of Graphics programming, Low level programming, GameDev and Reverse Engineering.
+        I'm currently looking for research oppurtunities in the fields of Graphics programming and
+        Reverse Engineering.
       </p>
 
       <a className="email-link" href={`mailto:${email}`}>

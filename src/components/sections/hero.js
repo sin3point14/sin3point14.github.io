@@ -60,13 +60,13 @@ const Hero = () => {
 
   const one = <h1>Hi, my name is</h1>;
   const two = <h2 className="big-heading">Manas Chaudhary.</h2>;
-  const three = <h3 className="big-heading">GameDev/Graphics programmer and a CTF Player</h3>;
+  const three = <h3 className="big-heading">Graphics programmer and a CTF Player</h3>;
   const four = (
     <>
       <p>
-        I’m a fresh Mechanical Engineering graduate from IIT Roorkee who's spent the better part of his college life
-        digging into game development, graphics programming, information security and web technologies.
-        I'm looking for employment oppurtunities in these domains.
+        I'm exploring research in computer graphics and reverse engineering. I hold a BTech in
+        Mechanical Engineering from IIT Roorkee. I have spent a better part of my free time digging
+        into game development, graphics programming, information security and web technologies.
       </p>
     </>
   );

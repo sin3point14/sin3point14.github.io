@@ -4,7 +4,7 @@ title: 'Google Summer of Code student'
 company: 'xrdesktop'
 location: 'Online'
 range: 'Summer 2021'
-url: ''
+url: 'https://sin3point14.github.io/blog/GSoC-Final/'
 ---
 
 - A library for XR interaction with classical desktop compositors on Linux

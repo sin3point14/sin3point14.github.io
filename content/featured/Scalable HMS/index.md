@@ -11,4 +11,4 @@ tech:
   - GCP
 ---
 
-A hospital management application built using flutter frontend and microservices architecture backend written in golang. Scaling being top priority, we used regionally scaled GKS with external database service to handle the load of orders of Indian population. The database was based on GCP CloudSQL with read replicas, load balanced with proxysql instance. I added serverless CI/CD and security pipeline based on GCP cloud functions.
+A hospital management application built using flutter frontend and microservices architecture backend written in golang. Scaling being top priority, we used regionally scaled GKS with external database service to handle the load of orders of Indian population. The database was based on GCP CloudSQL with read replicas, load balanced with proxysql instance.
